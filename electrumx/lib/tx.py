@@ -730,13 +730,13 @@ class DeserializerPeercoin(DeserializerTxTime):
 
     def read_tx_no_segwit(self):
         version = self._read_le_int32()
-        inputs = self._read_inputs()
-        outputs = self._read_outputs()
-        locktime = self._read_le_uint32()
         if version > 1:
             time = self._read_le_uint32()
         else:
             time = 0
+        inputs = self._read_inputs()
+        outputs = self._read_outputs()
+        locktime = self._read_le_uint32()
 
         return TxTime(version, time, inputs, outputs, locktime)
 
