@@ -730,7 +730,7 @@ class DeserializerPeercoin(DeserializerTxTime):
 
     def read_tx_no_segwit(self):
         version = self._read_le_int32()
-        if version > 1:
+        if version < 3:
             time = self._read_le_uint32()
         else:
             time = 0
@@ -744,7 +744,7 @@ class DeserializerPeercoin(DeserializerTxTime):
         '''Return a (deserialized TX, tx_hash, vsize) tuple.'''
         start = self.cursor
         tx_version = self._get_version()
-        if tx_version == 1: 
+        if tx_version < 3: 
             marker = self.binary[self.cursor + 8]
         else:
             marker = self.binary[self.cursor + 4]
@@ -754,7 +754,7 @@ class DeserializerPeercoin(DeserializerTxTime):
             return tx, tx_hash, self.binary_length
 
         version = self._read_le_int32()
-        if version > 1:
+        if version < 1:
             time = self._read_le_uint32()
         else:
             time = 0
