@@ -754,7 +754,7 @@ class DeserializerPeercoin(DeserializerTxTime):
             return tx, tx_hash, self.binary_length
 
         version = self._read_le_int32()
-        if version < 1:
+        if version < 3:
             time = self._read_le_uint32()
         else:
             time = 0
